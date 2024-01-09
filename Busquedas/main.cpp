@@ -2,8 +2,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#define ARRAY_SIZE 10000
-#define MAX_NUM_VAL 30000
+#define ARRAY_SIZE 100000
+#define MAX_NUM_VAL 200000
+
 using namespace std;
 int busquedaSecuencial(arreglo&,int);
 int busquedaBinaria(arreglo&,int);
@@ -38,16 +39,21 @@ int main() {
     for (int i = 0; i < MAX_NUM_VAL; i++) {
         if (busquedaSecuencial(A,i) != -1)
             count++;
+        if ((i+1) % 10000 == 0)
+            cout << count << " numeros al paso " << i + 1 << endl;
     }
     cout << "Se encontraron " << count << " numeros con busqueda secuencial" << endl;
 
     
     cout << "Test busqueda binaria" << endl;
     A.ordenIntercambio();
+    cout << "Se termina de ordenar el arreglo" << endl;
     count = 0;
     for (int i = 0; i < MAX_NUM_VAL; i++) {
         if (busquedaBinaria(A,i) != -1)
             count++;
+        if ((i+1) % 10000 == 0)
+            cout << count << " numeros al paso " << i + 1 << endl;
     }
     cout << "Se encontraron " << count << " numeros con busqueda binaria" << endl;
 
