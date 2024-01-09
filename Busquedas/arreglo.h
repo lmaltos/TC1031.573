@@ -11,6 +11,7 @@ class arreglo {
     int operator[](int);
     void set(int,int);
     int length() {return n;}
+    void ordenIntercambio();
 };
 
 arreglo::arreglo(int _n) {
@@ -32,6 +33,18 @@ int arreglo::operator[](int i) {
 void arreglo::set(int i ,int val) {
     a[i] = val;
 }
-    
+
+void arreglo::ordenIntercambio() {
+    int tmp;
+    for (int i = 0; i < n - 2; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (a[i] > a[j]) {
+                tmp = a[i]; // se guarda el valor de a[i]
+                a[i] = a[j]; // se pierde el valor de a[i]
+                a[j] = tmp;
+            }
+        }
+    }
+}    
 
 #endif
