@@ -1,13 +1,13 @@
 #include <iostream>
-#include "queueInt.h"
+#include "queue.h"
 
 using namespace std;
 
 int main() {
-    queueInt Q;
+    queue Q;
     int a;
     for (int i = 0; i < 15; i++) {
-        Q.push(rand() % 50);
+        Q.push(rand() % 50 - 25);
         cout << "front: " << Q.front() << endl;
         Q.print();
     }
@@ -24,11 +24,16 @@ int main() {
             cout << "a: pop" << endl;
         }
         else {
-            Q.push(a % 50);
+            Q.push(a % 50  -25);
             cout << "push " << a % 50 << endl;
         }
         cout << "front: " << Q.front() << endl;
         Q.print();
     }
+    while (!Q.isEmpty()) {
+        Q.pop();
+        Q.print();
+    }
+    cout << "termina" << endl;
     return 0;
 }
