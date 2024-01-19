@@ -13,6 +13,16 @@ int main() {
     miArbol.add(33);
     miArbol.add(21);
     miArbol.add(25);
+    cout << "Preorden" << endl;
+    miArbol.preorden();
+    cout << "Inorden" << endl;
+    miArbol.preorden();
+    miArbol.del(13);
+    cout << "Preorden" << endl;
+    miArbol.preorden();
+    cout << "Inorden" << endl;
+    miArbol.preorden();
+    cout << endl;
     for (int i = 10; i < 34; i++) {
         cout << "Busca " << i << (miArbol.search(i) ? " encontrado" : " no encontrado") << endl;
     }
