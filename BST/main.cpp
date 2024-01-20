@@ -1,9 +1,9 @@
 #include <iostream>
-#include "BST.h"
+#include "AVL.h"
 
 using namespace std;
 
-int main() {
+int main2() {
     BST miArbol;
     cout << "Agrega elementos" << endl;
     miArbol.add(20);
@@ -35,4 +35,15 @@ int main() {
         cout << "Busca " << i << (miArbol.search(i) ? " encontrado" : " no encontrado") << endl;
     }
     return 0;
+}
+
+int main() {
+    AVL arbol;
+    for (int i = 0; i < 50; i++) {
+        arbol.add(i);
+        if ((i + 1) % 10 == 0){
+            arbol.porNivel();
+            cout << endl;
+        }
+    }
 }

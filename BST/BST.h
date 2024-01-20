@@ -5,8 +5,9 @@
 #include <iostream>
 
 class BST {
-  private:
+  protected:
     nodeT *root;
+  private:
     void borrar(nodeT*);
     nodeT* predecesor(nodeT*);
     void preorden(nodeT*);
@@ -16,7 +17,7 @@ class BST {
     BST() {root = nullptr;}
     ~BST();
     bool search(int);
-    void add(int);
+    virtual void add(int); // para poder sobreescribir la funcion se necesita el virtual
     void del(int);
     void preorden() {preorden(root);}
     void inorden() {inorden(root);}
