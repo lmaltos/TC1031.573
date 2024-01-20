@@ -10,6 +10,7 @@ class BST {
     nodeT* predecesor(nodeT*);
     void preorden(nodeT*);
     void inorden(nodeT*);
+    void postorden(nodeT*);
   public:
     BST() {root = nullptr;}
     ~BST();
@@ -18,6 +19,7 @@ class BST {
     void del(int);
     void preorden() {preorden(root);}
     void inorden() {inorden(root);}
+    void postorden() {postorden(root);}
 };
 
 BST::~BST() {
@@ -159,7 +161,15 @@ void BST::inorden(nodeT *nodo) {
     if (nodo != nullptr) {
         inorden(nodo->Left());
         std::cout << nodo->getData() << " ";
-        inorden(nodo->Left());
+        inorden(nodo->Right());
+    }
+}
+
+void BST::postorden(nodeT *nodo) {
+    if (nodo != nullptr) {
+        postorden(nodo->Left());
+        postorden(nodo->Right());
+        std::cout << nodo->getData() << " ";
     }
 }
 
