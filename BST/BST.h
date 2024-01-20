@@ -1,6 +1,7 @@
 #ifndef BST_H
 #define BST_H
 #include "nodeT.h"
+#include "..\Queue\queue.h"
 #include <iostream>
 
 class BST {
@@ -20,6 +21,7 @@ class BST {
     void preorden() {preorden(root);}
     void inorden() {inorden(root);}
     void postorden() {postorden(root);}
+    void porNivel();
 };
 
 BST::~BST() {
@@ -173,4 +175,17 @@ void BST::postorden(nodeT *nodo) {
     }
 }
 
+void BST::porNivel() {
+    queue<nodeT*> fila;
+    nodeT* p;
+    if (root != nullptr)
+        fila.push(root);
+    while (!fila.isEmpty()) {
+        p = fila.front();
+        fila.pop();
+        std::cout << p->getData() << " ";
+        if (p->Left() != nullptr) fila.push(p->Left());
+        if (p->Right() != nullptr) fila.push(p->Right());
+    }
+}
 #endif

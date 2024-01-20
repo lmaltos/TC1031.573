@@ -1,44 +1,48 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "..\LinkedList\nodo_int.h"
+#include "..\linkedList\nodo.h"
 #include <iostream>
 
+template <typename T>
 class queue {
   private:
-    nodo_int *tail;
+    nodo<T> *tail;
     int size;
   public:
     queue();
     ~queue();
-    void push(int);
+    void push(T);
     void pop();
-    int front();
+    T front();
     bool isFull();
     bool isEmpty();
     void print();
 };
 
-queue::queue() {
+template <typename T>
+queue<T>::queue() {
     tail = nullptr;
     size = 0;
 }
 
-queue::~queue() {
-    nodo_int *p,*q;
+template <typename T>
+queue<T>::~queue() {
+    nodo<T> *p,*q;
     p = tail->getNext();
     for (int i = 0;i < size; i++) {
         q = p->getNext();
-        std::cout << "~delete p " << p->getData() << std::endl;
+        //std::cout << "~delete p " << p->getData() << std::endl;
         delete p;
         p = q;
     }
     tail;
 }
 
-void queue::push(int dato) {
-    nodo_int *nuevo;
-    nodo_int *primero;
-    nuevo = new nodo_int(dato);
+template <typename T>
+void queue<T>::push(T dato) {
+    nodo<T> *nuevo;
+    nodo<T> *primero;
+    nuevo = new nodo<T>(dato);
     if (tail == nullptr) {
         primero = nuevo; // es el mismo el primer elemento
     }
@@ -52,12 +56,13 @@ void queue::push(int dato) {
     size++;
 }
 
-void queue::pop() {
-    nodo_int *primero,*segundo;
+template <typename T>
+void queue<T>::pop() {
+    nodo<T> *primero,*segundo;
     if (isEmpty()) return;
     primero = tail->getNext();
     segundo = primero->getNext();
-    std::cout << "pop() delete primero " << primero->getData() << std::endl;
+    //std::cout << "pop() delete primero " << primero->getData() << std::endl;
     delete primero;
     if (primero == segundo) { // solo habia un elemento
         tail = nullptr; // 
@@ -68,28 +73,32 @@ void queue::pop() {
     size--;
 }
 
-int queue::front() {
-    nodo_int *primero;
+template <typename T>
+T queue<T>::front() {
+    nodo<T> *primero;
     primero = tail->getNext();
     return primero->getData();
 }
 
-bool queue::isFull() {
+template <typename T>
+bool queue<T>::isFull() {
     return false; // no tiene llenadera
 }
 
-bool queue::isEmpty() {
+template <typename T>
+bool queue<T>::isEmpty() {
     return (tail == nullptr);
 }
 
-void queue::print() {
+template <typename T>
+void queue<T>::print() {
     if (isEmpty())
         return;
     std::cout << "[ ";
-    nodo_int *p;
+    nodo<T> *p;
     p = tail->getNext();
     for (int i = 0;i < size; i++) {
-        std::cout << p->getData() << " ";
+        //std::cout << p->getData() << " ";
         p = p->getNext();
     }
     std::cout << "]";

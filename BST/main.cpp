@@ -19,6 +19,8 @@ int main() {
     miArbol.inorden();
     cout << "\nPostorden" << endl;
     miArbol.postorden();
+    cout << "\nPor Nivel" << endl;
+    miArbol.porNivel();
     miArbol.del(13);
     cout << "\nPreorden" << endl;
     miArbol.preorden();
@@ -26,6 +28,8 @@ int main() {
     miArbol.inorden();
     cout << "\nPostorden" << endl;
     miArbol.postorden();
+    cout << "\nPor Nivel" << endl;
+    miArbol.porNivel();
     cout << endl;
     for (int i = 10; i < 34; i++) {
         cout << "Busca " << i << (miArbol.search(i) ? " encontrado" : " no encontrado") << endl;
