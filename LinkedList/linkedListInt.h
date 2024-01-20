@@ -1,12 +1,11 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
-#include "nodo.h"
+#ifndef LINKEDLISTINT_H
+#define LINKEDLISTINT_H
+#include "nodo_int.h"
 #include <iostream>
 
-template <typename T>
 class linkedList {
   private:
-    nodo<T>* head;
+    nodo_int* head;
     int size;
   public:
     linkedList() {
@@ -21,7 +20,7 @@ class linkedList {
     int getSize() {return size;}
     // almacenar
     // agregar un elemnto
-    void addFirst(T);
+    void addFirst(int);
     // sumar los elementos
     // buscar elemento
     // concatenar listas
@@ -29,9 +28,8 @@ class linkedList {
     // modificar un elemento
 };
 
-template <typename T>
-linkedList<T>::~linkedList() {
-    nodo<T>* p = head, *q;
+linkedList::~linkedList() {
+    nodo_int* p = head, *q;
     for (int i = 0; i < size; i++) {
         q = p->getNext();
         //std::cout << "delete p: " << p->getData() << std::endl;
@@ -40,19 +38,17 @@ linkedList<T>::~linkedList() {
     }
 }
 
-template <typename T>
-void linkedList<T>::addFirst(T data) {
-    nodo<T>* nuevo; // primer paso crear el nodo
-    nuevo = new nodo<T>(data);
+void linkedList::addFirst(int data) {
+    nodo_int* nuevo; // primer paso crear el nodo
+    nuevo = new nodo_int(data);
     nuevo->setNext(head); // guardar referencia al head anterior
     head = nuevo; // ultimo paso actualizar head
     size++;
     //delete nuevo; // ???
 }
 
-template <typename T>
-void linkedList<T>::print() {
-    nodo<T>* p = head;
+void linkedList::print() {
+    nodo_int* p = head;
     for (int i = 0; i < size; i++) {
         std::cout << p->getData() << std::endl;
         p = p->getNext();
