@@ -39,11 +39,9 @@ int main2() {
 
 int main() {
     AVL arbol;
-    for (int i = 0; i < 50; i++) {
-        arbol.add(i);
-        if ((i + 1) % 10 == 0){
-            arbol.porNivel();
-            cout << endl;
-        }
+    for (int i = 0; i < 25; i++) {
+        arbol.add(rand()%100);
+        arbol.preorden();
+        cout << endl;
     }
 }

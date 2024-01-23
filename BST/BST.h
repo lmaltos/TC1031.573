@@ -185,8 +185,15 @@ void BST::porNivel() {
         p = fila.front();
         fila.pop();
         std::cout << p->getData() << " ";
-        if (p->Left() != nullptr) fila.push(p->Left());
-        if (p->Right() != nullptr) fila.push(p->Right());
+        if (p->Left() != nullptr) {
+            fila.push(p->Left());
+            std::cout << " push left ";
+        }
+        if (p->Right() != nullptr) {
+            fila.push(p->Right());
+            std::cout << " push right ";
+        }
     }
+    std::cout << " termina print por nivel ";
 }
 #endif

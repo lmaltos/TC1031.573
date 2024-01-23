@@ -39,13 +39,35 @@ void AVL::add(int dato) {
             intercambia(pivote,A);
         }
         else {
+            std::cout << "AVL::add RDI" << std::endl;
             // Rotacion doble a la izquierda
+            nodeT *C = A->Left();
+            A->setLeft(C->Right());
+            pivote->setRight(C->Left());
+            C->setLeft(pivote);
+            C->setRight(A);
+            intercambia(pivote,C);
         }
     }
     else {
         nodeT *A = pivote->Left();
-        // Rotacion simple a la derecha
-        // Rotacion doble a la derecha
+        if (A->getData() > dato) {
+            std::cout << "AVL::add RSD" << std::endl;
+            // Rotacion simple a la derecha
+            pivote->setLeft(A->Right());
+            A->setRight(pivote);
+            intercambia(pivote,A);
+        }
+        else {
+            std::cout << "AVL::add RDD" << std::endl;
+            // Rotacion doble a la derecha
+            nodeT *C = A->Right();
+            pivote->setLeft(C->Right());
+            A->setRight(C->Left());
+            C->setLeft(A);
+            C->setRight(pivote);
+            intercambia(pivote,C);
+        }
     }
 
 }
@@ -69,7 +91,7 @@ bool AVL::isBalanced(nodeT *nodo) {
 bool AVL::balanced(nodeT *nodo) {
     int altL = altura(nodo->Left());
     int altR = altura(nodo->Right());
-    std::cout << "nodo(" << nodo->getData() << ") altIzq = " << altL << " altDer = " << altR << std::endl;
+    //std::cout << "nodo(" << nodo->getData() << ") altIzq = " << altL << " altDer = " << altR << std::endl;
     if (altL > altR + 1 || altR > altL + 1)
         return false;
     return true;
