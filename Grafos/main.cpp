@@ -8,21 +8,23 @@ using namespace std;
 int main() {
     grafoLA G;
     G.addAdyacencia("A","B"); // crear nodos A y B y las adyacencias A->B y B->A    G.addArco('A','B');
-    G.addAdyacencia("A","C");
-    G.addAdyacencia("A","E");
-    G.addAdyacencia("B","D");
+    G.addAdyacencia("B","C");
     G.addAdyacencia("C","D");
-    G.addAdyacencia("D","E");
-    vector<string> ids = {"A","B","C","D","E"};
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            if (i != j) {
-                if (G.sonAdyacentes(ids[i],ids[j])) {
-                    cout << ids[i] << " -> " << ids[j] << endl;
-                }
-            }
-        }    
-    }
+    G.addAdyacencia("A","E");
+    G.addAdyacencia("C","F");
+    G.addAdyacencia("E","G");
+    G.addAdyacencia("E","H");
+    G.addAdyacencia("H","I");
+    G.addAdyacencia("H","J");
+    G.addAdyacencia("A","H");
+    G.addAdyacencia("B","E");
+    G.addAdyacencia("C","E");
+    G.addAdyacencia("F","J");
+    G.addAdyacencia("G","J");
+    string ans;
+    ans = G.BreadthFirst();
+    cout << "Recorrido Breadht First" << endl;
+    cout << ans << endl;
     return 0;
 }
 
