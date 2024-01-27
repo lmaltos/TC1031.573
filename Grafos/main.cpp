@@ -7,6 +7,16 @@ using namespace std;
 
 int main() {
     grafoLA G;
+    G.addNodo("A");
+    G.addNodo("B");
+    G.addNodo("C");
+    G.addNodo("D");
+    G.addNodo("E");
+    G.addNodo("F");
+    G.addNodo("G");
+    G.addNodo("H");
+    G.addNodo("I");
+    G.addNodo("J");
     G.addAdyacencia("A","B"); // crear nodos A y B y las adyacencias A->B y B->A    G.addArco('A','B');
     G.addAdyacencia("B","C");
     G.addAdyacencia("C","D");
@@ -21,10 +31,7 @@ int main() {
     G.addAdyacencia("C","E");
     G.addAdyacencia("F","J");
     G.addAdyacencia("G","J");
-    string ans;
-    ans = G.BreadthFirst();
-    cout << "Recorrido Breadht First" << endl;
-    cout << ans << endl;
+    cout << "Recorrido Breadht First " << G << endl;
     return 0;
 }
 

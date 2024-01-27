@@ -1,6 +1,7 @@
 #ifndef GRAFOLA_H
 #define GRAFOLA_H
 #include <string>
+#include <iostream>
 #include "..\Queue\queue.h"
 
 class nodoAdyacente {
@@ -35,14 +36,15 @@ class grafoLA {
   private:
     nodoLA *head;
     bool dirigido = true;
-    nodoLA* addNodo(std::string);
   public:
     grafoLA() {head = nullptr;}
-    nodoLA *buscarNodo(std::string);
-    int buscarPosNodo(nodoLA*);
+    nodoLA* addNodo(std::string);
+    nodoLA *buscarNodo(std::string) const;
+    int buscarPosNodo(nodoLA*) const;
     void addAdyacencia(std::string,std::string);
     bool sonAdyacentes(std::string,std::string);
-    std::string BreadthFirst();
+    void BreadthFirst(std::ostream&) const;
+    friend std::ostream& operator<<(std::ostream&,const grafoLA&);
 };
 
 nodoLA::nodoLA(std::string _id) {
@@ -51,7 +53,7 @@ nodoLA::nodoLA(std::string _id) {
     next = nullptr;
 }
 
-nodoLA *grafoLA::buscarNodo(std::string id) {
+nodoLA *grafoLA::buscarNodo(std::string id) const {
     nodoLA *p = head;
     while (p != nullptr) {
         if (p->getId() == id) {
@@ -59,10 +61,10 @@ nodoLA *grafoLA::buscarNodo(std::string id) {
         }
         p = p->getNext();
     }
-    return addNodo(id);
+    return nullptr;
 }
 
-int grafoLA::buscarPosNodo(nodoLA *q) {
+int grafoLA::buscarPosNodo(nodoLA *q) const{
     nodoLA *p = head;
     int n = 0;
     while (p != nullptr) {
@@ -164,8 +166,8 @@ enum Estatus {
     Listo,
 };
 
-std::string grafoLA::BreadthFirst() {
-    std::string ans = "[";
+void grafoLA::BreadthFirst(std::ostream& os) const {
+    os << "[";
     Estatus *estado;
     int n,i,k;
     nodoLA *p = head,*q,*r;
@@ -174,7 +176,7 @@ std::string grafoLA::BreadthFirst() {
         p = p->getNext();
         n++;
     }
-    std::cout << "hay " << n << " nodos" << std::endl;
+    //std::cout << "hay " << n << " nodos" << std::endl;
     estado = new Estatus[n];
     for (i = 0; i < n; i++) {
         estado[i] = EnEspera;
@@ -184,23 +186,23 @@ std::string grafoLA::BreadthFirst() {
     queue<nodoLA*> fila;
     while (p != nullptr) {
         if (estado[i] == EnEspera) {
-            std::cout << "nodo " << p->getId() << " en espera" << std::endl;
+            //std::cout << "nodo " << p->getId() << " en espera" << std::endl;
             fila.push(p);
         }
         while (!fila.isEmpty()) {
             q = fila.front();
-            ans += " " + q->getId();
+            os << " " + q->getId();
             fila.pop(); // se remueve
-            std::cout << "nodo " << q->getId() << " visitado" << std::endl;
+            //std::cout << "nodo " << q->getId() << " visitado" << std::endl;
             k = buscarPosNodo(q);
             estado[k] = Procesado;
             nodoAdyacente* s = q->getAdyacencias();
             while (s != nullptr) {
-                std::cout << "nodo " << s->getId() << " adyacente a " << q->getId() << std::endl;
+                //std::cout << "nodo " << s->getId() << " adyacente a " << q->getId() << std::endl;
                 r = buscarNodo(s->getId());
                 k = buscarPosNodo(r);
                 if (estado[k] == EnEspera) {
-                    std::cout << "nodo " << r->getId() << " en espera" << std::endl;
+                    //std::cout << "nodo " << r->getId() << " en espera" << std::endl;
                     fila.push(r);
                     estado[k] = Listo;
                 }
@@ -210,9 +212,13 @@ std::string grafoLA::BreadthFirst() {
         i++;
         p = p->getNext();
     }
-    ans = ans + "]";
-    std::cout << "termina BreadthFirst() " << ans << std::endl;
-    return ans;
+    os << " ]";
+    //std::cout << "termina BreadthFirst() " << ans << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os,const grafoLA& G) {
+    G.BreadthFirst(os);
+    return os;
 }
 
 #endif
