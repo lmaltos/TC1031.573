@@ -1,11 +1,12 @@
 #ifndef STACK_H
 #define STACK_H
-#include "..\LinkedList\nodo_int.h"
+#include "..\LinkedList\nodo.h"
 #include <iostream>
 
+template <typename T>
 class stack {
   private:
-    nodo_int* _top;
+    nodo<T>* _top;
     int size;
   public:
     stack();
@@ -17,13 +18,15 @@ class stack {
     int top();
 };
 
-stack::stack() {
+template <typename T>
+stack<T>::stack() {
     size = 0;
     _top = nullptr; // NULL
 }
 
-stack::~stack() {
-    nodo_int *p, *q;
+template <typename T>
+stack<T>::~stack() {
+    nodo<T> *p, *q;
     p = _top;
     for(int i = 0; i < size; i++) {
         q = p->getNext();
@@ -33,25 +36,29 @@ stack::~stack() {
     }
 }
 
-bool stack::isFull () {
+template <typename T>
+bool stack<T>::isFull () {
     return false;
 }
 
-bool stack::isEmpty() {
+template <typename T>
+bool stack<T>::isEmpty() {
     return (size == 0);
 }
 
-void stack::push(int dato) {
-    nodo_int *nuevo;
-    nuevo = new nodo_int(dato,_top);
+template <typename T>
+void stack<T>::push(int dato) {
+    nodo<T> *nuevo;
+    nuevo = new nodo<T>(dato,_top);
     _top = nuevo;
     size++;
 }
 
-void stack::pop() {
+template <typename T>
+void stack<T>::pop() {
     if (isEmpty())
         return;
-    nodo_int *p;
+    nodo<T> *p;
     p = _top->getNext();
     std::cout << "delete top " << _top->getData() << std::endl;
     delete _top; // liberamos memoria dinamica
@@ -59,7 +66,8 @@ void stack::pop() {
     size--;
 }
 
-int stack::top() {
+template <typename T>
+int stack<T>::top() {
     return _top->getData();
 }
 
