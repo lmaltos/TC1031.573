@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include "..\Queue\queue.h"
+#include "..\Stack\stack.h"
 
 class nodoAdyacente {
   private:
@@ -40,10 +41,12 @@ class grafoLA {
     grafoLA() {head = nullptr;}
     nodoLA* addNodo(std::string);
     nodoLA *buscarNodo(std::string) const;
+    int getNodos() const;
     int buscarPosNodo(nodoLA*) const;
     void addAdyacencia(std::string,std::string);
     bool sonAdyacentes(std::string,std::string);
     void BreadthFirst(std::ostream&) const;
+    void DepthFirst() const;
     friend std::ostream& operator<<(std::ostream&,const grafoLA&);
 };
 
@@ -213,7 +216,65 @@ void grafoLA::BreadthFirst(std::ostream& os) const {
         p = p->getNext();
     }
     os << " ]";
+    delete[] estado;
     //std::cout << "termina BreadthFirst() " << ans << std::endl;
+}
+
+int grafoLA::getNodos() const {
+    int n;
+    nodoLA *p = head;
+    n = 0;
+    while (p != nullptr) {
+        p = p->getNext();
+        n++;
+    }
+    return n;
+}
+
+void grafoLA::DepthFirst() const {
+    Estatus *estado;
+    int n,i,k;
+    nodoLA *p,*q,*r;
+    n = getNodos();
+    //std::cout << "hay " << n << " nodos" << std::endl;
+    estado = new Estatus[n];
+    for (i = 0; i < n; i++) {
+        estado[i] = EnEspera;
+    }
+    stack<nodoLA*> pila;
+    //std::cout << "Crea pila" << std::endl;
+    i = 0;
+    p = head;
+    while (p != nullptr) {
+        if (estado[i] == EnEspera) {
+            //std::cout << "nodo " << p->getId() << " en espera" << std::endl;
+            pila.push(p);
+        }
+        while (!pila.isEmpty()) {
+            q = pila.top();
+            pila.pop();
+            k = buscarPosNodo(q);
+            if (estado[k] == EnEspera) {
+                estado[k] = Procesado; // se marca la visita del nodo
+                std::cout << q->getId() << " ";
+                nodoAdyacente* s = q->getAdyacencias();
+                while (s != nullptr) {
+                    //std::cout << "nodo " << s->getId() << " adyacente a " << q->getId() << std::endl;
+                    r = buscarNodo(s->getId());
+                    k = buscarPosNodo(r);
+                    if (estado[k] != Procesado) {
+                        //std::cout << "nodo " << r->getId() << " en espera" << std::endl;
+                        pila.push(r);
+                    }
+                    s = s->getNext();
+                }
+            }
+        }
+        i++;
+        p = p->getNext();
+    }
+
+    delete[] estado;
 }
 
 std::ostream& operator<<(std::ostream& os,const grafoLA& G) {
