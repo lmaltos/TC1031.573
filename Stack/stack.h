@@ -30,7 +30,7 @@ stack<T>::~stack() {
     p = _top;
     for(int i = 0; i < size; i++) {
         q = p->getNext();
-        std::cout << "~delete top " << p->getData() << std::endl;
+        //std::cout << "~delete top " << p->getData() << std::endl;
         delete p;
         p = q;
     }
@@ -60,7 +60,7 @@ void stack<T>::pop() {
         return;
     nodo<T> *p;
     p = _top->getNext();
-    std::cout << "delete top " << _top->getData() << std::endl;
+    //std::cout << "delete top " << _top->getData() << std::endl;
     delete _top; // liberamos memoria dinamica
     _top = p;
     size--;
