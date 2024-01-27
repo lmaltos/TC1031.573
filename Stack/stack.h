@@ -13,9 +13,9 @@ class stack {
     ~stack();
     bool isFull();
     bool isEmpty();
-    void push(int);
+    void push(T);
     void pop();
-    int top();
+    T top();
 };
 
 template <typename T>
@@ -47,7 +47,7 @@ bool stack<T>::isEmpty() {
 }
 
 template <typename T>
-void stack<T>::push(int dato) {
+void stack<T>::push(T dato) {
     nodo<T> *nuevo;
     nuevo = new nodo<T>(dato,_top);
     _top = nuevo;
@@ -67,7 +67,7 @@ void stack<T>::pop() {
 }
 
 template <typename T>
-int stack<T>::top() {
+T stack<T>::top() {
     return _top->getData();
 }
 
