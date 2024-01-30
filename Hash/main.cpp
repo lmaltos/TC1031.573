@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Hash.h"
+#include "Hash2.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ int otraFuncion(int a) {
 }
 
 int main() {
-    Hash<int> S(&otraFuncion);
+    Hash<int> S(otraFuncion);
     for (int i = 0; i < 15; i++) {
         int a = rand() % 100;
         cout << a << " ";
